@@ -29,4 +29,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/workflow-ci-cd:latest
+          tags: ghcr.io/henriquenohub/workflow-ci-cd:latest
