@@ -31,16 +31,14 @@ npm start      # inicia a versão compilada (após o build)
 ## CI/CD no GitHub Actions
 
 O workflow em `.github/workflows/ci-cd.yml` executa lint, testes e build em
-pull requests e em pushes para `main`. Após um push bem-sucedido em `main`, a
-etapa de CD pode acionar um deploy no Render:
+pull requests e em pushes para `main`.
 
-1. Crie um serviço Web no Render conectado ao repositório.
-2. Configure o comando de build como `npm ci && npm run build` e o comando de
-   início como `npm start`.
-3. Copie o Deploy Hook do serviço e cadastre-o no GitHub em
-   **Settings > Secrets and variables > Actions**, com o nome
-   `RENDER_DEPLOY_HOOK_URL`.
+O workflow `.github/workflows/publish-ghcr.yml` constrói e publica uma única
+imagem Docker no GitHub Container Registry (GHCR) em pushes para `main` ou em
+execução manual. Ele autentica com o `GITHUB_TOKEN` e publica a tag `latest`.
 
-Sem esse secret, a validação de CI continua funcionando e a etapa de deploy
-informa que foi ignorada. O serviço escuta na porta definida pela variável
-`PORT`, conforme esperado por plataformas de hospedagem.
+Para baixar a imagem:
+
+```bash
+docker pull ghcr.io/<seu-usuario>/workflow-ci-cd:latest
+```
